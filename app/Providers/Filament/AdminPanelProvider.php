@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->registration()
             ->passwordReset()
+            ->spa()
             ->colors([
                 'primary' => Color::Amber,
             ])
