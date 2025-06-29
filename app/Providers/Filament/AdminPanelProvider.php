@@ -29,6 +29,13 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->registration()
             ->passwordReset()
+            ->spa()
+            ->spaUrlExceptions([
+                '/admin/login',
+                '/admin/register',
+                '/admin/password-reset/*',
+            ])
+            ->sidebarCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Amber,
             ])
