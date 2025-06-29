@@ -7,7 +7,7 @@ function CameraSection() {
             <Box aspectRatio={600 / 500} w='72rem' position='relative'>
                 <Image src={'/camera-booth.png'} aspectRatio={600 / 500} w='full' zIndex={1} borderBottomRightRadius='3rem' borderTopLeftRadius='3rem' />
                 <Box bgColor='primary.500' position='absolute' zIndex={100} top={10} left={'50%'} w='max-content' borderTopRightRadius='1.5rem' borderBottomLeftRadius='1.5rem' p='1rem'>
-                    <Heading size='lg'>
+                    <Heading size='lg' color='white'>
                         Scan Jenis Batik di Booth Kami
                     </Heading>
                 </Box>

@@ -13,7 +13,19 @@ Route::get('/katalog', function () {
 
 Route::get('/katalog/{id}', function () {
     return Inertia::render('catalog/detailProduct/index');
-})->name('detailProduct');
+});
+
+Route::get('/keranjang', function () {
+    return Inertia::render('keranjang/index');
+})->name('cart');
+
+Route::get('/keranjang/{userId}/{cartId}', function () {
+    return Inertia::render('keranjang/detail/index');
+});
+
+Route::get('/keranjang/{userId}/{cartId}/checkout', function () {
+    return Inertia::render('keranjang/checkout/index');
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {

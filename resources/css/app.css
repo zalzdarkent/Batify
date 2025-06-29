@@ -150,10 +150,18 @@
 
 @layer base {
     * {
-        @apply border-border;
+        @apply border-border !important;
     }
 
     body {
         @apply bg-background text-foreground;
     }
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
 }

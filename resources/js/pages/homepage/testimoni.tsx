@@ -17,8 +17,8 @@ function Testimoni() {
 
             <Flex gap={'2rem'} wrap="wrap" justifyContent='center'> 
                 {
-                    testimonials.map(t => (
-                        <Card.Root maxW="sm" overflow="hidden" bgColor='secondary.500'>
+                    testimonials.map((t, i) => (
+                        <Card.Root maxW="sm" overflow="hidden" bgColor='secondary.500' key={i}>
                             <Card.Body gap="3.5">
                                 <HStack>
                                     {

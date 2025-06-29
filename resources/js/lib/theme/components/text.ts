@@ -3,7 +3,7 @@ import { defineRecipe } from '@chakra-ui/react'
 const textRecipe = defineRecipe({
   className: 'text',
   base: {
-    color: '{white}',
+    color: '{black}',
     fontFamily: 'body',
     fontSize: '1rem'
   },

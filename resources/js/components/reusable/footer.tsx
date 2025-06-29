@@ -14,7 +14,7 @@ function Footer() {
                 <GridItem colSpan={2}>
                     <VStack alignItems={'flex-start'} spaceY='1rem'>
                         <Image src="/logo-transparent.png" alt="Batify Logo" width={150} />
-                        <Text variant='reg.normal.reg'>
+                        <Text variant='reg.normal.reg'color='white'>
                             Batify adalah rumahnya batik lokal berkualitas tinggi. Kami hadir untuk generasi yang ingin tampil gaya tanpa melupakan budaya. Semua produk kami 100% asli buatan pengrajin Indonesia.
                         </Text>
                         <HStack>
@@ -37,8 +37,8 @@ function Footer() {
                 <GridItem>
                     <VStack spaceY='1rem' justifyContent='center' h={'full'}>
                         {footerMenu.map(menuItem => (
-                            <Link href={`/${menuItem.url}`}>
-                                <Text variant={menuItem.url !== '' ? 'reg.normal.reg' : 'reg.normal.bold'}>
+                            <Link href={`/${menuItem.url}`} key={menuItem.url}>
+                                <Text variant={menuItem.url !== '' ? 'reg.normal.reg' : 'reg.normal.bold'} color='white'>
                                     {menuItem.label}
                                 </Text>
                             </Link>
@@ -66,21 +66,21 @@ function Footer() {
                                     }}
                                 />
                                 <Button bgColor='blue.600' borderRadius={'3xl'}  >
-                                    <Text variant='reg.none.reg'>
+                                    <Text variant='reg.none.reg' color='white'>
                                         Berlangganan
                                     </Text>
                                 </Button>
                             </Group>
                         </form>
 
-                        <Text variant='reg.normal.reg' >
+                        <Text variant='reg.normal.reg' color='white'>
                             Tenang, kami gak bakal spam kamu. Cuma info penting, promo seru, dan update batik terbaru aja yang akan dikirim ke inbox kamu.
                         </Text>
                     </VStack>
                 </GridItem>
 
                 <GridItem colSpan={6}>
-                    <Text variant="reg.none.reg">
+                    <Text variant="reg.none.reg" color='white'>
                         © 2025 Batify. All Right Reserved.
                     </Text>
                 </GridItem>
