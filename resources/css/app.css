@@ -150,7 +150,7 @@
 
 @layer base {
     * {
-        @apply border-border !important;
+        border-color: theme('colors.border') !important;
     }
 
     body {
