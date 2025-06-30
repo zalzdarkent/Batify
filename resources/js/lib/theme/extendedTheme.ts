@@ -132,7 +132,7 @@ const config = defineConfig({
       text: Text,
       iconButton: IconButton,
       button: Button
-    }
+    },
   }
 })
 

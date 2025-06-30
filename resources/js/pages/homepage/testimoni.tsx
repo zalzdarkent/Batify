@@ -11,7 +11,7 @@ function Testimoni() {
                 </Text>
             </Center>
 
-            <Heading size='xl' color={'black'}>
+            <Heading size={{lg:'xl',base:'lg'}} color={'black'} textAlign={{lg:'start', base: 'center'}} >
                 Apa kata mereka yang udah beli?
             </Heading>
 

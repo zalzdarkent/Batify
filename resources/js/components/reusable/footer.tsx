@@ -10,11 +10,11 @@ import { Link } from "@inertiajs/react"
 function Footer() {
     return (
         <Group bg={system.token('colors.primary.500')} h={300} w={'full'} color={'white'} px={'5rem'} py='12rem'>
-            <Grid templateColumns={'repeat(6, 1fr)'} gapY='2rem' gapX={'10rem'}>
+            <Grid templateColumns={{ lg: 'repeat(6, 1fr)' }} gapY='2rem' gapX={'10rem'}>
                 <GridItem colSpan={2}>
                     <VStack alignItems={'flex-start'} spaceY='1rem'>
                         <Image src="/logo-transparent.png" alt="Batify Logo" width={150} />
-                        <Text variant='reg.normal.reg'color='white'>
+                        <Text variant='reg.normal.reg' color='white'>
                             Batify adalah rumahnya batik lokal berkualitas tinggi. Kami hadir untuk generasi yang ingin tampil gaya tanpa melupakan budaya. Semua produk kami 100% asli buatan pengrajin Indonesia.
                         </Text>
                         <HStack>

@@ -14,7 +14,7 @@ function Navbar() {
         <Flex alignItems='center' justifyContent='space-between' px={{
             base: '1rem',
             lg: '3rem'
-        }} zIndex={100} bgColor='white' position='sticky' top='0' opacity={80 / 100} borderBottom='2px solid' borderColor='neutral.400' h='7rem'>
+        }} zIndex={200} bgColor='white' position='sticky' top='0' opacity={80 / 100} borderBottom='2px solid' borderColor='neutral.400' h='7rem'>
             <Link href="/">
                 <Image alt="Batify Logo" src="/logo.png" w="12vw" minW='8rem' py={5} />
             </Link>
