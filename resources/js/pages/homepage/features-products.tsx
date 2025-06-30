@@ -7,7 +7,7 @@ import { MdArrowForwardIos } from "react-icons/md";
 
 function FeaturesProducts() {
     return (
-        <VStack alignItems='flex-start' p='3rem' spaceY='2rem'>
+        <VStack bgColor={"white"} alignItems='flex-start' p='3rem' spaceY='2rem'>
             <HStack>
                 <Box bgColor='black' h='2.5rem' w='0.3rem' borderRadius='1rem' />
 

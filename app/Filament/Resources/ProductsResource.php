@@ -2,18 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProductsResource\Pages;
-use App\Filament\Resources\ProductsResource\RelationManagers;
-use App\Models\Products;
-use App\Models\Categories;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Products;
+use Filament\Forms\Form;
+use App\Models\Categories;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Support\Htmlable;
+use App\Filament\Resources\ProductsResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ProductsResource\RelationManagers;
 
 class ProductsResource extends Resource
 {
@@ -22,6 +24,25 @@ class ProductsResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-cube';
 
     protected static ?string $navigationGroup = 'Main';
+
+    protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getGlobalSearchResultTitle(Model $record): string | Htmlable
+    {
+        return $record->name;
+    }
+
+    public static function getGlobalSearchResultUrl(Model $record): string
+    {
+        return static::getUrl('index', ['tableSearch' => $record->name]);
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'Category' => $record->category->name,
+        ];
+    }
 
     protected static ?string $navigationBadgeTooltip = 'Total Produk';
 
@@ -45,7 +66,8 @@ class ProductsResource extends Resource
                                             ->required()
                                             ->maxLength(255)
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn ($state, Forms\Set $set) => 
+                                            ->afterStateUpdated(
+                                                fn($state, Forms\Set $set) =>
                                                 $set('slug', Str::slug($state))
                                             ),
                                         Forms\Components\TextInput::make('slug')
@@ -60,7 +82,14 @@ class ProductsResource extends Resource
                                         Forms\Components\Select::make('id_category')
                                             ->label('Kategori')
                                             ->required()
-                                            ->options(Categories::all()->pluck('name', 'id'))
+                                            ->options(function () {
+                                                $activeCategories = Categories::all()->pluck('name', 'id')->toArray();
+                                                $trashedCategories = Categories::onlyTrashed()->get()->mapWithKeys(function ($category) {
+                                                    return [$category->id => $category->name . ' (Dihapus)'];
+                                                })->toArray();
+                                                
+                                                return $activeCategories + $trashedCategories;
+                                            })
                                             ->searchable(),
                                         Forms\Components\TextInput::make('price')
                                             ->label('Harga')
@@ -96,7 +125,7 @@ class ProductsResource extends Resource
                                     ]),
                             ])
                             ->collapsible(),
-                        
+
                         Forms\Components\Section::make('Detail Produk')
                             ->schema([
                                 Forms\Components\Grid::make(1)
@@ -172,7 +201,14 @@ class ProductsResource extends Resource
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Kategori')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->formatStateUsing(function ($state, $record) {
+                        if ($record->category && $record->category->trashed()) {
+                            return "{$state} (Dihapus)";
+                        }
+                        return $state ?? 'Tidak ada kategori';
+                    })
+                    ->color(fn ($record) => $record->category && $record->category->trashed() ? 'danger' : null),
                 Tables\Columns\TextColumn::make('price')
                     ->label('Harga')
                     ->money('IDR')
@@ -202,17 +238,41 @@ class ProductsResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('id_category')
                     ->label('Kategori')
-                    ->options(Categories::all()->pluck('name', 'id'))
+                    ->options(function () {
+                        $activeCategories = Categories::all()->pluck('name', 'id')->toArray();
+                        $trashedCategories = Categories::onlyTrashed()->get()->mapWithKeys(function ($category) {
+                            return [$category->id => $category->name . ' (Dihapus)'];
+                        })->toArray();
+                        
+                        return $activeCategories + $trashedCategories;
+                    })
                     ->searchable(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->successNotificationTitle('Produk berhasil diperbarui')
+                    ->successNotification(
+                        \Filament\Notifications\Notification::make()
+                            ->success()
+                            ->title('Produk Diperbarui!')
+                            ->body('Data produk berhasil diperbarui. File gambar lama yang tidak digunakan telah dihapus otomatis.')
+                    ),
+                Tables\Actions\DeleteAction::make()
+                    ->requiresConfirmation()
+                    ->modalHeading('Hapus Produk')
+                    ->modalDescription('Apakah Anda yakin ingin menghapus produk ini?')
+                    ->modalSubmitActionLabel('Ya, Hapus')
+                    ->modalCancelActionLabel('Batal'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->requiresConfirmation()
+                        ->modalHeading('Hapus Produk Terpilih')
+                        ->modalDescription('Apakah Anda yakin ingin menghapus semua produk yang dipilih?')
+                        ->modalSubmitActionLabel('Ya, Hapus Semua')
+                        ->modalCancelActionLabel('Batal'),
                 ]),
             ]);
     }

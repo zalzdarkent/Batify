@@ -6,12 +6,12 @@ function CartPage() {
     return (
         <MainLayout title='Keranjang'>
             <Center h='74vh' w='full'>
-                <Flex flexDir='column' w='50%' aspectRatio='square' gap='3rem' justifyContent='center'>
+                <Flex flexDir='column' w={{ base: '90%', md: '50%' }} aspectRatio='square' gap='3rem' justifyContent='center'>
                     <VStack spaceY='0.5rem'>
-                        <Heading color='black' size='lg'>
+                        <Heading color='black' size='lg' textAlign='center'>
                             Selamat Datang di Batify
                         </Heading>
-                        <Text color='black'>
+                        <Text color='black' textAlign='center'>
                             Silakan masukkan ID Pengguna dari tiket masuk Anda
                         </Text>
                     </VStack>

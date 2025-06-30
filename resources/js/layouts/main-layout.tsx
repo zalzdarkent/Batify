@@ -23,7 +23,7 @@ function MainLayout({
         <>
             <Head title={title} />
             <Navbar />
-            <Box {...props} minH={'calc(100vh - 7rem)'}>
+            <Box {...props} minH={'calc(100vh - 7rem)'} bgColor={"white"}>
                 {children}
             </Box>
 

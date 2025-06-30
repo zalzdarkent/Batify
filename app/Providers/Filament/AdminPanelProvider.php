@@ -29,6 +29,8 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->registration()
             ->passwordReset()
+            ->profile()
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->spa()
             ->spaUrlExceptions([
                 '/admin/login',
