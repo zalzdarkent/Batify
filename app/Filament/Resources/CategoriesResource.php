@@ -87,8 +87,8 @@ class CategoriesResource extends Resource
                 Tables\Filters\TrashedFilter::make()
                     ->label('Status')
                     ->placeholder('Semua')
-                    ->trueLabel('Hanya yang Dihapus')
-                    ->falseLabel('Hanya yang Aktif'),
+                    ->falseLabel('Hanya yang Dihapus')
+                    ->trueLabel('Hanya yang Aktif'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

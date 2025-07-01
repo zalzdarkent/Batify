@@ -19,11 +19,11 @@ class ArticlesResource extends Resource
 {
     protected static ?string $model = Articles::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static ?string $navigationGroup = 'Management';
     
-    protected static ?int $navigationGroupSort = 2;
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationBadgeTooltip = 'Total Artikel';
 
@@ -31,7 +31,7 @@ class ArticlesResource extends Resource
 
     public static function getGlobalSearchResultTitle(Model $record): string | Htmlable
     {
-        return $record->name;
+        return $record->title;
     }
 
     public static function getGlobalSearchResultUrl(Model $record): string
